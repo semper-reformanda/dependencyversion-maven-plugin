@@ -1,2 +1,3 @@
+${org.apache.maven:maven-core:jar}
 ${org.apache.maven:maven-core:jar.relative.basedir}
 ${org.apache.maven:maven-core:jar.relative.target}

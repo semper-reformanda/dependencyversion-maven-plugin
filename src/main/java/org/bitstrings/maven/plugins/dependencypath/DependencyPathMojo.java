@@ -48,39 +48,35 @@ public class DependencyPathMojo extends AbstractMojo
     private MavenProject project;
 
     @MojoParameter
-    private Selector[] selectors;
+    private PropertySet propertySetsDefault = new PropertySet();
 
     @MojoParameter
-    private String suffixDefault;
-
-    @MojoParameter
-    private File relativeToDefault;
-
-    @MojoParameter(defaultValue="true")
-    private boolean transitiveDefault;
-
-    @MojoParameter(defaultValue="true")
-    private boolean autoRelativeSuffixDefault;
+    private PropertySet[] propertySets = new PropertySet[] { new PropertySet() };
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        final Properties properties = project.getProperties();
-
-        if (selectors == null)
+        if (propertySetsDefault.getAutoRelativeSuffix() == null)
         {
-            selectors = new Selector[] { new Selector() };
+            propertySetsDefault.setAutoRelativeSuffix(true);
         }
 
-        for (Selector selector : selectors)
+        if (propertySetsDefault.getTransitive() == null)
         {
-            final Set<String> includes = selector.getIncludes();
-            final Set<String> excludes = selector.getExcludes();
+            propertySetsDefault.setTransitive(true);
+        }
 
-            Boolean transitive = selector.getTransitive();
+        final Properties properties = project.getProperties();
+
+        for (PropertySet propertySet : propertySets)
+        {
+            final Set<String> includes = propertySet.getIncludes();
+            final Set<String> excludes = propertySet.getExcludes();
+
+            Boolean transitive = propertySet.getTransitive();
 
             if (transitive == null)
             {
-                transitive = transitiveDefault;
+                transitive = propertySetsDefault.getTransitive();
             }
 
             final Set<Artifact> artifacts =
@@ -102,20 +98,20 @@ public class DependencyPathMojo extends AbstractMojo
 
                 String key = dependencyConflictId;
 
-                File relativeTo = selector.getRelativeTo();
+                File relativeTo = propertySet.getRelativeTo();
 
                 if (relativeTo == null)
                 {
-                    relativeTo = this.relativeToDefault;
+                    relativeTo = propertySetsDefault.getRelativeTo();
                 }
 
                 if (relativeTo != null)
                 {
-                    Boolean autoRelativeSuffix = selector.getAutoRelativeSuffix();
+                    Boolean autoRelativeSuffix = propertySet.getAutoRelativeSuffix();
 
                     if (autoRelativeSuffix == null)
                     {
-                        autoRelativeSuffix = autoRelativeSuffixDefault;
+                        autoRelativeSuffix = propertySetsDefault.getAutoRelativeSuffix();
                     }
 
                     if (autoRelativeSuffix)
@@ -124,11 +120,11 @@ public class DependencyPathMojo extends AbstractMojo
                     }
                 }
 
-                String suffix = selector.getSuffix();
+                String suffix = propertySet.getSuffix();
 
                 if (suffix == null)
                 {
-                    suffix = this.suffixDefault;
+                    suffix = propertySetsDefault.getSuffix();
                 }
 
                 if (suffix != null)

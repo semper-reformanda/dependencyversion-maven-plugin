@@ -26,7 +26,7 @@ import org.jfrog.maven.annomojo.annotations.MojoParameter;
  * @author Pino Silvaggio
  *
  */
-public class Selector
+public class PropertySet
 {
     @MojoParameter
     private String suffix;
