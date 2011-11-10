@@ -11,6 +11,11 @@
 
     <name>dependencypath-maven-plugin</name>
 
+    <description>
+        Sets Maven properties to the artifact file. Each property name will have a base name in form
+        of groupId:artifactId:type:[classifier][.relative][.suffix].
+    </description>
+
     <inceptionYear>2011</inceptionYear>
 
     <developers>
@@ -23,6 +28,12 @@
             <timezone>-5</timezone>
         </developer>
     </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:bitstrings/dependencypath-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:bitstrings/dependencypath-maven-plugin.git</developerConnection>
+        <url>scm:git:git@github.com:bitstrings/dependencypath-maven-plugin.git</url>
+    </scm>
 
     <prerequisites>
         <maven>3.0</maven>
