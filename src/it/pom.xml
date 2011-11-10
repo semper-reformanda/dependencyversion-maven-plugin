@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.bitstrings.maven.plugins.its.artifactprops</groupId>
+    <artifactId>test</artifactId>
+    <version>1.0</version>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.bitstrings.maven.plugins</groupId>
+                <artifactId>dependencypath-maven-plugin</artifactId>
+                <version>@project.version@</version>
+                <executions>
+                    <execution>
+                        <id>1</id>
+                        <goals>
+                            <goal>set</goal>
+                        </goals>
+                        <configuration>
+                            <selectors>
+                                <selector>
+                                    <suffix>basedir</suffix>
+                                    <relativeTo>${basedir}</relativeTo>
+                                </selector>
+                            </selectors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>2</id>
+                        <goals>
+                            <goal>set</goal>
+                        </goals>
+                        <configuration>
+                            <selectors>
+                                <selector>
+                                    <suffix>target</suffix>
+                                    <relativeTo>${project.build.directory}</relativeTo>
+                                    <includes>
+                                        <include>org.apache.maven:maven-core:jar</include>
+                                    </includes>
+                                </selector>
+                            </selectors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>@maven.version@</version>
+        </dependency>
+    </dependencies>
+
+</project>
