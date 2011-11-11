@@ -48,13 +48,23 @@ public class DependencyPathMojo extends AbstractMojo
     private MavenProject project;
 
     @MojoParameter
-    private PropertySet propertySetsDefault = new PropertySet();
+    private PropertySet propertySetsDefault;
 
     @MojoParameter
-    private PropertySet[] propertySets = new PropertySet[] { new PropertySet() };
+    private PropertySet[] propertySets;
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
+        if (propertySetsDefault == null)
+        {
+            propertySetsDefault = new PropertySet();
+        }
+
+        if (propertySets == null)
+        {
+            propertySets = new PropertySet[] { new PropertySet() };
+        }
+
         if (propertySetsDefault.getAutoRelativeSuffix() == null)
         {
             propertySetsDefault.setAutoRelativeSuffix(true);
