@@ -17,6 +17,7 @@
 package org.bitstrings.maven.plugins.dependencypath;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
 
@@ -47,17 +48,23 @@ public class DependencyPathMojo extends AbstractMojo
                    description = "The Maven Project")
     private MavenProject project;
 
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
-    private PropertySet propertySetsDefault;
+    private PropertySet defaultPropertySet;
 
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
     private PropertySet[] propertySets;
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        if (propertySetsDefault == null)
+        if (defaultPropertySet == null)
         {
-            propertySetsDefault = new PropertySet();
+            defaultPropertySet = new PropertySet();
         }
 
         if (propertySets == null)
@@ -65,14 +72,20 @@ public class DependencyPathMojo extends AbstractMojo
             propertySets = new PropertySet[] { new PropertySet() };
         }
 
-        if (propertySetsDefault.getAutoRelativeSuffix() == null)
+        if (defaultPropertySet.getAutoRelativeSuffix() == null)
         {
-            propertySetsDefault.setAutoRelativeSuffix(true);
+            defaultPropertySet.setAutoRelativeSuffix(true);
         }
 
-        if (propertySetsDefault.getTransitive() == null)
+        if (defaultPropertySet.getTransitive() == null)
         {
-            propertySetsDefault.setTransitive(true);
+            defaultPropertySet.setTransitive(true);
+        }
+
+        if (getLog().isDebugEnabled())
+        {
+            getLog().debug("defaultPropertySet" + defaultPropertySet);
+            getLog().debug("propertySets" + Arrays.toString(propertySets));
         }
 
         final Properties properties = project.getProperties();
@@ -86,7 +99,7 @@ public class DependencyPathMojo extends AbstractMojo
 
             if (transitive == null)
             {
-                transitive = propertySetsDefault.getTransitive();
+                transitive = defaultPropertySet.getTransitive();
             }
 
             final Set<Artifact> artifacts =
@@ -112,7 +125,7 @@ public class DependencyPathMojo extends AbstractMojo
 
                 if (relativeTo == null)
                 {
-                    relativeTo = propertySetsDefault.getRelativeTo();
+                    relativeTo = defaultPropertySet.getRelativeTo();
                 }
 
                 if (relativeTo != null)
@@ -121,7 +134,7 @@ public class DependencyPathMojo extends AbstractMojo
 
                     if (autoRelativeSuffix == null)
                     {
-                        autoRelativeSuffix = propertySetsDefault.getAutoRelativeSuffix();
+                        autoRelativeSuffix = defaultPropertySet.getAutoRelativeSuffix();
                     }
 
                     if (autoRelativeSuffix)
@@ -134,7 +147,7 @@ public class DependencyPathMojo extends AbstractMojo
 
                 if (suffix == null)
                 {
-                    suffix = propertySetsDefault.getSuffix();
+                    suffix = defaultPropertySet.getSuffix();
                 }
 
                 if (suffix != null)

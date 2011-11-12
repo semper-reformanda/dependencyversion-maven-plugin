@@ -28,21 +28,39 @@ import org.jfrog.maven.annomojo.annotations.MojoParameter;
  */
 public class PropertySet
 {
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
     private String suffix;
 
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
     private Set<String> includes;
 
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
     private Set<String> excludes;
 
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
     private File relativeTo;
 
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
     private Boolean transitive;
 
+    /**
+     * @since 1.0.0
+     */
     @MojoParameter
     private Boolean autoRelativeSuffix;
 
@@ -103,5 +121,17 @@ public class PropertySet
     public void setAutoRelativeSuffix(Boolean autoRelativeSuffix)
     {
         this.autoRelativeSuffix = autoRelativeSuffix;
+    }
+
+    @Override
+    public String toString()
+    {
+        return
+                "suffix: " + suffix
+                    + ", includes: " + includes
+                    + ", excludes: " + excludes
+                    + ", relativeTo: " + relativeTo
+                    + ", transitive: " + transitive
+                    + ", autoRelativeSuffix: " + autoRelativeSuffix;
     }
 }
