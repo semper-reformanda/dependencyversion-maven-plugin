@@ -27,37 +27,39 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.PathTool;
-import org.jfrog.maven.annomojo.annotations.MojoGoal;
-import org.jfrog.maven.annomojo.annotations.MojoMultiExecution;
-import org.jfrog.maven.annomojo.annotations.MojoParameter;
-import org.jfrog.maven.annomojo.annotations.MojoPhase;
-import org.jfrog.maven.annomojo.annotations.MojoRequiresDependencyResolution;
 
 /**
+ * @requiresDependencyResolution test
+ * @goal set
+ * @phase initialize
+ * @threadSafe
  *
  * @author Pino Silvaggio
  *
  */
-@MojoRequiresDependencyResolution("test")
-@MojoGoal("set")
-@MojoPhase("initialize")
-@MojoMultiExecution
 public class DependencyPathMojo extends AbstractMojo
 {
-    @MojoParameter(expression = "${project}", required = true, readonly = true,
-                   description = "The Maven Project")
+    /**
+     * @parameter expression = "${project}"
+     *            required = true
+     *            readonly = true
+     *
+     * @since 1.0.0
+     */
     private MavenProject project;
 
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private PropertySet defaultPropertySet;
 
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private PropertySet[] propertySets;
 
     public void execute() throws MojoExecutionException, MojoFailureException

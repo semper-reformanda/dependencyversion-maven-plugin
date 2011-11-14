@@ -19,8 +19,6 @@ package org.bitstrings.maven.plugins.dependencypath;
 import java.io.File;
 import java.util.Set;
 
-import org.jfrog.maven.annomojo.annotations.MojoParameter;
-
 /**
  *
  * @author Pino Silvaggio
@@ -29,39 +27,45 @@ import org.jfrog.maven.annomojo.annotations.MojoParameter;
 public class PropertySet
 {
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private String suffix;
 
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private Set<String> includes;
 
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private Set<String> excludes;
 
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private File relativeTo;
 
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private Boolean transitive;
 
     /**
+     * @parameter
+     *
      * @since 1.0.0
      */
-    @MojoParameter
     private Boolean autoRelativeSuffix;
 
     public String getSuffix()
