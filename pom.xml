@@ -13,8 +13,8 @@
     <packaging>maven-plugin</packaging>
 
     <description>
-        Sets Maven properties to the artifact file. Each property name will have a base name in form
-        of groupId:artifactId:type:[classifier][.relative][.suffix].
+        Sets a property pointing to the artifact file for each selected project dependency.
+        Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
     </description>
 
     <inceptionYear>2011</inceptionYear>
