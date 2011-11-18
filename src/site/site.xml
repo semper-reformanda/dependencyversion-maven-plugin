@@ -29,10 +29,6 @@ under the License.
             <item name="Goals" href="plugin-info.html" />
             <item name="Usage" href="usage.html" />
         </menu>
-        <menu name="Examples">
-            <item name="Creating an Executable JAR File"
-                  href="http://maven.apache.org/shared/maven-archiver/examples/classpath.html" />
-        </menu>
 
         <menu ref="reports"/>
 

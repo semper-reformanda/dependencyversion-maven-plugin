@@ -22,29 +22,21 @@
                 <version>@project.version@</version>
                 <executions>
                     <execution>
-                        <id>1</id>
+                        <id>set-all</id>
                         <goals>
                             <goal>set</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>2</id>
+                        <id>set-relative-builddir</id>
                         <goals>
                             <goal>set</goal>
                         </goals>
                         <configuration>
                             <propertySets>
-                                <propertySet />
                                 <propertySet>
-                                    <suffix>basedir</suffix>
-                                    <relativeTo>${basedir}</relativeTo>
-                                </propertySet>
-                                <propertySet>
-                                    <suffix>target</suffix>
+                                    <suffix>builddir</suffix>
                                     <relativeTo>${project.build.directory}</relativeTo>
-                                    <includes>
-                                        <include>org.apache.maven:maven-core:jar</include>
-                                    </includes>
                                 </propertySet>
                             </propertySets>
                         </configuration>

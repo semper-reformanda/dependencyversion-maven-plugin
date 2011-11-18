@@ -28,202 +28,136 @@
 
 Usage
 
-  Some brief examples on how to use this plugin. If you want to use advanced
-  configurations you should have a look at the documentation for
-  {{{http://maven.apache.org/shared/maven-archiver/}Maven Archiver}}.
-
-  To handle archiving this version of Maven JAR Plugin uses
-  {{{http://maven.apache.org/shared/maven-archiver/index.html}Maven Archiver}} ${mavenArchiverVersion}.
-
-  <<Note:>> Originally, this plugin was meant to sign JARs as well. As of version 2.3, the corresponding goals are no
-  longer supported and users are advised to use the dedicated
-  {{{http://maven.apache.org/plugins/maven-jarsigner-plugin/}Maven Jarsigner Plugin}} instead.
+  Some brief examples on how to use this plugin.
 
 
-* How to build a JAR file
+* How to set a property which value is the absolute path to the artifact file for each selected project dependency (including transitive)
 
-  If the packaging of your project is set to 'jar', this plugin is executed
-  whenever it passes the "package" phase. You can execute it
-  using the command below:
+  i.e.: This does the same thing as the dependency:properties goal.
 
 +-----------------+
-mvn package
+<plugin>
+    <groupId>org.bitstrings.maven.plugins</groupId>
+    <artifactId>dependencypath-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <id>set-all</id>
+            <goals>
+                <goal>set</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
 +-----------------+
 
-  In your project's <<<target>>> directory you'll able to see the generated jar file.
+  This will for example create a property like $\{junit:junit:jar\} and $\{commons-lang:commons-lang:jar\}.
 
 
-* How to include/exclude content from jar artifact
+* How to include/exclude dependencies
 
-  Specify a list of fileset patterns to be included or excluded by adding
+  Specify a list of dependencies to be included or excluded by adding
   <<<\<includes\>>>>/<<<\<include\>>>> or <<<\<excludes\>>>>/<<<\<exclude\>>>>
   in your <<<pom.xml>>>.
 
 +-----------------+
-<project>
-  ...
-  <build>
-    <plugins>
-      ...
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${project.version}</version>
-        <configuration>
-          <includes>
-            <include>**/service/*</include>
-          </includes>
-        </configuration>
-      </plugin>
-      ...
-    </plugins>
-  </build>
-  ...
-</project>
-+-----------------+
-
-  Note that the patterns need to be relative to the path specified for the plugin's
-  <<<classesDirectory>>> parameter.
-
-
-* How to create an additional attached jar artifact from the project
-
-  Specify a list of fileset patterns to be included or excluded by adding
-  <<<\<includes\>>>>/<<<\<include\>>>> or <<<\<excludes\>>>>/<<<\<exclude\>>>>
-  and add a <<<classifier>>> in your <<<pom.xml>>>.
-
-  <<Note:>> the jar-plugin must be defined in a new execution, otherwise it
-  will replace the default use of the jar-plugin instead of adding a second
-  artifact. The <<<classifier>>> is also required to create more than one artifact.
-
-+-----------------+
-<project>
-  ...
-  <build>
-    <plugins>
-      ...
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${project.version}</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
+<plugin>
+    <groupId>org.bitstrings.maven.plugins</groupId>
+    <artifactId>dependencypath-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <id>set-all</id>
             <goals>
-              <goal>jar</goal>
+                <goal>set</goal>
+            </goals>
+        </execution>
+        <configuration>
+            <propertySets>
+                <propertySet>
+                    <includes>
+                        <include>junit:junit:jar</include>
+                        <include>org.apache.maven:maven-core:jar</include>
+                    </includes>
+                </propertySet>
+            </propertySets>
+        </configuration>
+    </executions>
+</plugin>
++-----------------+
+
+
+* How to set a property which value a relative path to the artifact file for each selected project dependency (excluding transitive)
+
+  Use the <<<relativeTo>>> parameter to base your relative path on. This will also
+  automatically append ".relative" to the property name.
+  If you do not want to include transitive dependencies just
+  set the <<<transitive>>> parameter to <<false>>.
+  Further more, you can set <<<suffix>>> which will append a suffix
+  to the parameter name, in this case ".builddir".
+
++-----------------+
+<plugin>
+    <groupId>org.bitstrings.maven.plugins</groupId>
+    <artifactId>dependencypath-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <id>set-relative-builddir</id>
+            <goals>
+                <goal>set</goal>
             </goals>
             <configuration>
-              <classifier>client</classifier>
-              <includes>
-                <include>**/service/*</include>
-              </includes>
+                <propertySets>
+                    <propertySet>
+                        <suffix>builddir</suffix>
+                        <relativeTo>${project.build.directory}</relativeTo>
+                        <transitive>false</transitive>
+                    </propertySet>
+                </propertySets>
             </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      ...
-    </plugins>
-  </build>
-  ...
-</project>
+        </execution>
+    </executions>
+</plugin>
 +-----------------+
 
-* How to create a jar containing test classes
+  This will for example create a property like $\{junit:junit:jar.relative.builddir\}
+  and $\{commons-lang:commons-lang:jar.relative.builddir\}.
 
-  When you want to create a jar containing test-classes, you would probably want to reuse those classes.
-  There are two ways to solve this:
 
-  * Create an attached jar with the test-classes from the current project and loose its transitive <<<test>>>-scoped dependencies.
+* How to disable the automatic ".relative" suffix
 
-  * Create a separate project with the test-classes.
-
-  []
-
-** The easy way
-
-  You can produce a jar which will include your test classes and resources.
+  Set the <<<autoRelativeSuffix>>> to <<false>>, this will not add
+  the ".relative" suffix to the property name.
 
 +-----------------+
-<project>
-  ...
-  <build>
-    <plugins>
-      ...
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${project.version}</version>
-        <executions>
-          <execution>
+<plugin>
+    <groupId>org.bitstrings.maven.plugins</groupId>
+    <artifactId>dependencypath-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <id>set-relative-builddir</id>
             <goals>
-              <goal>test-jar</goal>
+                <goal>set</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      ...
-    </plugins>
-  </build>
-  ...
-</project>
+            <configuration>
+                <propertySets>
+                    <propertySet>
+                        <suffix>builddir</suffix>
+                        <relativeTo>${project.build.directory}</relativeTo>
+                        <transitive>false</transitive>
+                        <autoRelativeSuffix>false</autoRelativeSuffix>
+                    </propertySet>
+                </propertySets>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
 +-----------------+
 
-  To reuse this artifact in an other project, you must declare this dependency with classifier test-jar :
+  This will for example create a property like $\{junit:junit:jar.builddir\}
+  and $\{commons-lang:commons-lang:jar.builddir\}.
 
-+-----------------+
-<project>
-  ...
-  <dependencies>
-    <dependency>
-      <groupId>groupId</groupId>
-      <artifactId>artifactId</artifactId>
-      <type>test-jar</type>
-      <version>version</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  ...
-</project>
-+-----------------+
-
-  <<Note:>> The downside of this solution is that you don't get the transitive <<<test>>>-scoped dependencies automatically.
-  Maven only resolves the <<<compile>>>-time dependencies, so you'll have to add all the other required <<<test>>>-scoped dependencies by hand.
-
-** The preferred way
-
-  In order to let Maven resolve all <<<test>>>-scoped transitive dependencies you should create a separate project.
-
-+-----------------+
-<project>
-   <groupId>groupId</groupId>
-    <artifactId>artifactId-tests</artifactId>
-    <version>version</version>
-  ...
-</project>
-+-----------------+
-
-   * Move the sources files from <<<src/test/java>>> you want to share from the original project to the <<<src/main/java>>> of this project.
-     The same type of movement counts for the resources as well of course.
-
-   * Move the required <<<test>>>-scoped dependencies and from the original project to this project and remove the scope (i.e. changing it to the <<<compile>>>-scope).
-     And yes, that means that the junit dependency (or any other testing framework dependency) gets the default scope too.
-     You'll probably need to add some project specific dependencies as well to let it all compile again.
-
-  Now you have your reusable test-classes and you can refer to it as you're used to:
-
-+-----------------+
-<project>
-  ...
-  <dependencies>
-    <dependency>
-      <groupId>groupId</groupId>
-      <artifactId>artifactId-tests</artifactId>
-      <version>version</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  ...
-</project>
-+-----------------+
 
   For full documentation, click {{{./plugin-info.html}here}}.
