@@ -35,3 +35,21 @@ Maven Dependency Path Plugin
   * {{{./set-mojo.html}dependency:set}} Sets Maven properties.
 
   []
+
+* What exactly does this plugin do?
+
+  Basically it sets a property which value is the path to a artifact of a dependency:
+
++-----------------+
+junit:junit:jar=/home/user/.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar
++-----------------+
+
+  or
+
++-----------------+
+junit:junit:jar.relative=../../../.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar
++-----------------+
+
+  For usage, click {{{./usage.html}here}}.
+
+  []

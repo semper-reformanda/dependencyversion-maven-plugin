@@ -29,6 +29,9 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.PathTool;
 
 /**
+ * Sets a property pointing to the artifact file for each selected project dependency.
+ * Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
+ *
  * @requiresDependencyResolution test
  * @goal set
  * @phase initialize
@@ -41,14 +44,17 @@ public class DependencyPathMojo extends AbstractMojo
 {
     /**
      * @parameter expression = "${project}"
-     *            required = true
-     *            readonly = true
+     * @required
+     * @readonly
      *
      * @since 1.0.0
      */
     private MavenProject project;
 
     /**
+     * The default property set.
+     * See <a href="propertyset-reference.html">PropertySet Reference</a>.
+     *
      * @parameter
      *
      * @since 1.0.0
@@ -56,6 +62,9 @@ public class DependencyPathMojo extends AbstractMojo
     private PropertySet defaultPropertySet;
 
     /**
+     * The property sets.
+     * See <a href="propertyset-reference.html">PropertySet Reference</a>.
+     *
      * @parameter
      *
      * @since 1.0.0

@@ -30,6 +30,10 @@ under the License.
             <item name="Usage" href="usage.html" />
         </menu>
 
+        <menu name="Reference">
+            <item name="PropertySet" href="propertyset-reference.html" />
+        </menu>
+
         <menu ref="reports"/>
 
     </body>
