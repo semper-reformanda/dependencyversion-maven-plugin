@@ -34,10 +34,10 @@ PropertySet
  suffix              | String           | 1.0.0          | Suffix to add to the end of the property name.
                      |                  |                | This comes after the relative suffix if applicable.
 *--------------------+------------------+----------------+------------------------------------------------------------+
- includes            | Set<<<String>>>  | 1.0.0          | List of dependencies to include.\
+ includes            | Set              | 1.0.0          | List of dependencies to include.\
                      |                  |                | Specified as groupId:artifactId:type:[classifier].
 *--------------------+------------------+----------------+------------------------------------------------------------+
- excludes            | Set<<<String>>>  | 1.0.0          | List of dependencies to include.\
+ excludes            | Set              | 1.0.0          | List of dependencies to exclude.\
                      |                  |                | Specified as groupId:artifactId:type:[classifier].
 *--------------------+------------------+----------------+------------------------------------------------------------+
  relativeTo          | File             | 1.0.0          | The resulting paths will be relative to the given path.

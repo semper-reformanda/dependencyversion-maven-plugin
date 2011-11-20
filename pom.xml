@@ -47,7 +47,7 @@
             <distribution>manual</distribution>
             <url>https://raw.github.com/bitstrings/dependencypath-maven-plugin/master/LICENSE.txt</url>
             <comments>
-                http://www.apache.org/licenses
+                http://www.apache.org/licenses/LICENSE-2.0.html
             </comments>
         </license>
     </licenses>

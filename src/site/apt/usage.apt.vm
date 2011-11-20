@@ -111,7 +111,7 @@ Usage
                 <propertySets>
                     <propertySet>
                         <suffix>builddir</suffix>
-                        <relativeTo>${project.build.directory}</relativeTo>
+                        <relativeTo>\${project.build.directory}</relativeTo>
                         <transitive>false</transitive>
                     </propertySet>
                 </propertySets>
@@ -145,7 +145,7 @@ Usage
                 <propertySets>
                     <propertySet>
                         <suffix>builddir</suffix>
-                        <relativeTo>${project.build.directory}</relativeTo>
+                        <relativeTo>\${project.build.directory}</relativeTo>
                         <transitive>false</transitive>
                         <autoRelativeSuffix>false</autoRelativeSuffix>
                     </propertySet>
