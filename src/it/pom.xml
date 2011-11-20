@@ -38,6 +38,11 @@
                                     <suffix>builddir</suffix>
                                     <relativeTo>${project.build.directory}</relativeTo>
                                 </propertySet>
+                                <propertySet>
+                                    <suffix>basedir</suffix>
+                                    <relativeTo>${basedir}</relativeTo>
+                                    <autoRelativeSuffix>false</autoRelativeSuffix>
+                                </propertySet>
                             </propertySets>
                         </configuration>
                     </execution>
