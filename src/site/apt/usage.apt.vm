@@ -51,14 +51,14 @@ Usage
 </plugin>
 +-----------------+
 
-  This will for example create a property like $\{junit:junit:jar\} and $\{commons-lang:commons-lang:jar\}.
+  This will for example create a property like junit:junit:jar and commons-lang:commons-lang:jar.
 
 
 * How to include/exclude dependencies
 
   Specify a list of dependencies to be included or excluded by adding
   <<<\<includes\>>>>/<<<\<include\>>>> or <<<\<excludes\>>>>/<<<\<exclude\>>>>
-  in your <<<pom.xml>>>.
+  in your pom.xml.
 
 +-----------------+
 <plugin>
@@ -92,7 +92,7 @@ Usage
   Use the <<<relativeTo>>> parameter to base your relative path on. This will also
   automatically append ".relative" to the property name.
   If you do not want to include transitive dependencies just
-  set the <<<transitive>>> parameter to <<false>>.
+  set the <<<transitive>>> parameter to false.
   Further more, you can set <<<suffix>>> which will append a suffix
   to the parameter name, in this case ".builddir".
 
@@ -121,13 +121,13 @@ Usage
 </plugin>
 +-----------------+
 
-  This will for example create a property like $\{junit:junit:jar.relative.builddir\}
-  and $\{commons-lang:commons-lang:jar.relative.builddir\}.
+  This will for example create a property like junit:junit:jar.relative.builddir
+  and commons-lang:commons-lang:jar.relative.builddir.
 
 
 * How to disable the automatic ".relative" suffix
 
-  Set the <<<autoRelativeSuffix>>> to <<false>>, this will not add
+  Set the <<<autoRelativeSuffix>>> to false, this will not add
   the ".relative" suffix to the property name.
 
 +-----------------+
@@ -156,8 +156,8 @@ Usage
 </plugin>
 +-----------------+
 
-  This will for example create a property like $\{junit:junit:jar.builddir\}
-  and $\{commons-lang:commons-lang:jar.builddir\}.
+  This will for example create a property like junit:junit:jar.builddir
+  and commons-lang:commons-lang:jar.builddir.
 
 
   For full documentation, click {{{./plugin-info.html}here}}.

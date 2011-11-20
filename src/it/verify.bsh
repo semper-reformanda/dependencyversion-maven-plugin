@@ -16,6 +16,10 @@ verify.setProperty(
         "org.apache.maven:maven-core:jar.relative.builddir",
         "../../local-repo/org/apache/maven/maven-core/3.0/maven-core-3.0.jar");
 
+verify.setProperty(
+        "org.apache.maven:maven-artifact:jar",
+        new File(localRepositoryPath, "org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.jar").getAbsolutePath());
+
 Properties props = new Properties();
 
 props.load(new FileReader(new File(basedir, "target/classes/test.properties")));
