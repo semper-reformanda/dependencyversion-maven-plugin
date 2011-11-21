@@ -12,7 +12,7 @@
 
     <groupId>org.bitstrings.maven.plugins</groupId>
     <artifactId>dependencypath-maven-plugin</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <name>dependencypath-maven-plugin</name>
 
