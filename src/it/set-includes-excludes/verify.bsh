@@ -1,0 +1,30 @@
+import java.io.File;
+import java.io.FileReader;
+import java.util.Properties;
+
+Properties verify = new Properties();
+
+verify.setProperty(
+        "org.apache.maven:maven-aether-provider:jar.excludes",
+        "${org.apache.maven:maven-aether-provider:jar.excludes}");
+
+verify.setProperty(
+        "org.sonatype.aether:aether-impl:jar.excludes",
+        "${org.sonatype.aether:aether-impl:jar.excludes}");
+
+verify.setProperty(
+        "org.sonatype.aether:aether-util:jar.excludes",
+        "${org.sonatype.aether:aether-util:jar.excludes}");
+
+verify.setProperty(
+        "org.sonatype.aether:aether-util:jar",
+        new File(localRepositoryPath, "org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar").getAbsolutePath());
+
+Properties props = new Properties();
+
+props.load(new FileReader(new File(basedir, "target/classes/test.properties")));
+
+if (!verify.equals(props))
+{
+    throw new RuntimeException("Incorrect properties value: " + basedir);
+}

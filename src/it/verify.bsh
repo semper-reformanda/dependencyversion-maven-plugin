@@ -1,30 +1,13 @@
 import java.io.File;
-import java.io.FileReader;
-import java.util.Properties;
 
-Properties verify = new Properties();
+import bsh.Interpreter;
 
-verify.setProperty(
-        "org.apache.maven:maven-core:jar",
-        new File(localRepositoryPath, "org/apache/maven/maven-core/3.0/maven-core-3.0.jar").getAbsolutePath());
+Interpreter i = new Interpreter();
 
-verify.setProperty(
-        "org.apache.maven:maven-core:jar.basedir",
-        "../local-repo/org/apache/maven/maven-core/3.0/maven-core-3.0.jar");
+i.set("localRepositoryPath", localRepositoryPath);
 
-verify.setProperty(
-        "org.apache.maven:maven-core:jar.relative.builddir",
-        "../../local-repo/org/apache/maven/maven-core/3.0/maven-core-3.0.jar");
+i.set("basedir", new File(basedir, "set-all"));
+i.source(new File(i.get("basedir"), "verify.bsh").getAbsolutePath());
 
-verify.setProperty(
-        "org.apache.maven:maven-artifact:jar",
-        new File(localRepositoryPath, "org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.jar").getAbsolutePath());
-
-Properties props = new Properties();
-
-props.load(new FileReader(new File(basedir, "target/classes/test.properties")));
-
-if (!verify.equals(props))
-{
-    throw new RuntimeException("Incorrect properties value!");
-}
+i.set("basedir", new File(basedir, "set-includes-excludes"));
+i.source(new File(i.get("basedir"), "verify.bsh").getAbsolutePath());

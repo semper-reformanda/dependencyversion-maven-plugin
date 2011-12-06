@@ -214,7 +214,7 @@
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
-                                    <debug>true</debug>
+                                    <debug>false</debug>
                                     <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
                                     <preBuildHookScript>setup</preBuildHookScript>
                                     <postBuildHookScript>verify.bsh</postBuildHookScript>

@@ -51,6 +51,27 @@ Usage
 </plugin>
 +-----------------+
 
+  or
+
++-----------------+
+<plugin>
+    <groupId>org.bitstrings.maven.plugins</groupId>
+    <artifactId>dependencypath-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <id>set-all</id>
+            <goals>
+                <goal>set</goal>
+            </goals>
+            <configuration>
+                <propertySets/>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
++-----------------+
+
   This will for example create a property like junit:junit:jar and commons-lang:commons-lang:jar.
 
 

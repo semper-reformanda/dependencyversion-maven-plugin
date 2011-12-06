@@ -4,52 +4,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.bitstrings.maven.plugins.its.artifactprops</groupId>
-    <artifactId>test</artifactId>
+    <groupId>org.bitstrings.maven.plugins.its.dependencypath</groupId>
+    <artifactId>test-parent</artifactId>
     <version>1.0</version>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.bitstrings.maven.plugins</groupId>
-                <artifactId>dependencypath-maven-plugin</artifactId>
-                <version>@project.version@</version>
-                <executions>
-                    <execution>
-                        <id>set-all</id>
-                        <goals>
-                            <goal>set</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>set-relative-builddir</id>
-                        <goals>
-                            <goal>set</goal>
-                        </goals>
-                        <configuration>
-                            <propertySets>
-                                <propertySet>
-                                    <suffix>builddir</suffix>
-                                    <relativeTo>${project.build.directory}</relativeTo>
-                                </propertySet>
-                                <propertySet>
-                                    <suffix>basedir</suffix>
-                                    <relativeTo>${basedir}</relativeTo>
-                                    <autoRelativeSuffix>false</autoRelativeSuffix>
-                                </propertySet>
-                            </propertySets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>set-all</module>
+        <module>set-includes-excludes</module>
+    </modules>
 
     <dependencies>
         <dependency>
