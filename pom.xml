@@ -230,7 +230,7 @@
             </build>
         </profile>
         <profile>
-            <id>its</id>
+            <id>it</id>
             <build>
                 <plugins>
                     <plugin>
