@@ -166,12 +166,21 @@ public class DependencyPathMojo extends AbstractMojo
                     key += "." + suffix;
                 }
 
-                properties.setProperty(key, getPath(artifact, relativeTo));
+                final String path = getPath(artifact, relativeTo);
 
                 if (getLog().isDebugEnabled())
                 {
-                    getLog().debug("Setting property " + key + "=" + properties.get(key));
+                    getLog().debug(
+                            "Setting property for " + dependencyConflictId
+                                + " with key=" + key + ", path=" + path);
                 }
+
+                if (path == null)
+                {
+                    throw new MojoExecutionException("Unable to obtain path for " + dependencyConflictId + ".");
+                }
+
+                properties.setProperty(key, path);
             }
         }
     }
