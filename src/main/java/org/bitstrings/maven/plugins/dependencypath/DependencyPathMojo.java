@@ -177,7 +177,10 @@ public class DependencyPathMojo extends AbstractMojo
 
                 if (path == null)
                 {
-                    throw new MojoExecutionException("Unable to obtain path for " + dependencyConflictId + ".");
+                    throw new MojoExecutionException(
+                            "Unable to obtain path for " + dependencyConflictId
+                                + (relativeTo == null ? "(absolute)" : "(relative to " + relativeTo + ")")
+                                + ".");
                 }
 
                 properties.setProperty(key, path);
