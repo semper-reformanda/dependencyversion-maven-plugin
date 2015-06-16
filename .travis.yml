@@ -2,5 +2,4 @@ language: java
 script: mvn verify javadoc:javadoc
 jdk:
   - oraclejdk7
-  - oraclejdk8
   - openjdk7
