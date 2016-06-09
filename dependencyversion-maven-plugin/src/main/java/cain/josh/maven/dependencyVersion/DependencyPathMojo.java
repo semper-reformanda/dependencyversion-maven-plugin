@@ -21,32 +21,28 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.PathTool;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
 
+// TODO document why path is no longer needed (I.E. dependency:properties)
 /**
  * Sets a property pointing to the artifact file for each selected project dependency.
  * Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
  *
+ * @author Pino Silvaggio
  * @requiresDependencyResolution test
  * @goal set
  * @phase initialize
  * @threadSafe
- *
- * @author Pino Silvaggio
- *
  */
-public class DependencyPathMojo extends AbstractMojo
-{
+public class DependencyPathMojo extends AbstractMojo {
     /**
      * @parameter expression = "${project}"
      * @required
      * @readonly
-     *
      * @since 1.0.0
      */
     private MavenProject project;
@@ -56,7 +52,6 @@ public class DependencyPathMojo extends AbstractMojo
      * See <a href="propertyset-reference.html">PropertySet Reference</a>.
      *
      * @parameter
-     *
      * @since 1.0.0
      */
     private PropertySet defaultPropertySet;
@@ -66,67 +61,56 @@ public class DependencyPathMojo extends AbstractMojo
      * See <a href="propertyset-reference.html">PropertySet Reference</a>.
      *
      * @parameter
-     *
      * @since 1.0.0
      */
     private PropertySet[] propertySets;
 
-    public void execute() throws MojoExecutionException, MojoFailureException
-    {
-        if (defaultPropertySet == null)
-        {
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        if (defaultPropertySet == null) {
             defaultPropertySet = new PropertySet();
         }
 
-        if (propertySets == null)
-        {
-            propertySets = new PropertySet[] { new PropertySet() };
+        if (propertySets == null) {
+            propertySets = new PropertySet[]{new PropertySet()};
         }
 
-        if (defaultPropertySet.getAutoRelativeSuffix() == null)
-        {
+        if (defaultPropertySet.getAutoRelativeSuffix() == null) {
             defaultPropertySet.setAutoRelativeSuffix(true);
         }
 
-        if (defaultPropertySet.getTransitive() == null)
-        {
+        if (defaultPropertySet.getTransitive() == null) {
             defaultPropertySet.setTransitive(true);
         }
 
-        if (getLog().isDebugEnabled())
-        {
+        if (getLog().isDebugEnabled()) {
             getLog().debug("defaultPropertySet" + defaultPropertySet);
             getLog().debug("propertySets" + Arrays.toString(propertySets));
         }
 
         final Properties properties = project.getProperties();
 
-        for (PropertySet propertySet : propertySets)
-        {
+        for (PropertySet propertySet : propertySets) {
             final Set<String> includes = propertySet.getIncludes();
             final Set<String> excludes = propertySet.getExcludes();
 
             Boolean transitive = propertySet.getTransitive();
 
-            if (transitive == null)
-            {
+            if (transitive == null) {
                 transitive = defaultPropertySet.getTransitive();
             }
 
             final Set<Artifact> artifacts =
-                            transitive
-                                    ? project.getArtifacts()
-                                    : project.getDependencyArtifacts();
+                    transitive
+                            ? project.getArtifacts()
+                            : project.getDependencyArtifacts();
 
-            for (Artifact artifact : artifacts)
-            {
+            for (Artifact artifact : artifacts) {
                 final String dependencyConflictId = artifact.getDependencyConflictId();
 
                 if (((includes != null) && !includes.isEmpty()
-                                && !includes.contains(dependencyConflictId))
+                        && !includes.contains(dependencyConflictId))
                         || ((excludes != null) && !excludes.isEmpty()
-                                        && excludes.contains(dependencyConflictId)))
-                {
+                        && excludes.contains(dependencyConflictId))) {
                     continue;
                 }
 
@@ -134,53 +118,45 @@ public class DependencyPathMojo extends AbstractMojo
 
                 File relativeTo = propertySet.getRelativeTo();
 
-                if (relativeTo == null)
-                {
+                if (relativeTo == null) {
                     relativeTo = defaultPropertySet.getRelativeTo();
                 }
 
-                if (relativeTo != null)
-                {
+                if (relativeTo != null) {
                     Boolean autoRelativeSuffix = propertySet.getAutoRelativeSuffix();
 
-                    if (autoRelativeSuffix == null)
-                    {
+                    if (autoRelativeSuffix == null) {
                         autoRelativeSuffix = defaultPropertySet.getAutoRelativeSuffix();
                     }
 
-                    if (autoRelativeSuffix)
-                    {
+                    if (autoRelativeSuffix) {
                         key += ".relative";
                     }
                 }
 
                 String suffix = propertySet.getSuffix();
 
-                if (suffix == null)
-                {
+                if (suffix == null) {
                     suffix = defaultPropertySet.getSuffix();
                 }
 
-                if (suffix != null)
-                {
+                if (suffix != null) {
                     key += "." + suffix;
                 }
 
-                final String path = getPath(artifact, relativeTo);
+                final String path = getVersion(artifact, relativeTo);
 
-                if (getLog().isDebugEnabled())
-                {
+                if (getLog().isDebugEnabled()) {
                     getLog().debug(
                             "Setting property for " + dependencyConflictId
-                                + " with key=" + key + ", path=" + path);
+                                    + " with key=" + key + ", path=" + path);
                 }
 
-                if (path == null)
-                {
+                if (path == null) {
                     throw new MojoExecutionException(
                             "Unable to obtain path for " + dependencyConflictId
-                                + (relativeTo == null ? "(absolute)" : "(relative to " + relativeTo + ")")
-                                + ".");
+                                    + (relativeTo == null ? "(absolute)" : "(relative to " + relativeTo + ")")
+                                    + ".");
                 }
 
                 properties.setProperty(key, path);
@@ -188,11 +164,8 @@ public class DependencyPathMojo extends AbstractMojo
         }
     }
 
-    protected String getPath(Artifact artifact, File relativeTo)
-    {
-        return
-                relativeTo == null
-                        ? artifact.getFile().getAbsolutePath()
-                        : PathTool.getRelativeFilePath(relativeTo.getPath(), artifact.getFile().getAbsolutePath());
+    // TODO remove 'relativeTo'
+    protected String getVersion(Artifact artifact, File relativeTo) {
+        return artifact.getVersion();
     }
 }
