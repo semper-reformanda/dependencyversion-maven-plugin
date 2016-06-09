@@ -1,6 +1,4 @@
 
-## Documentation
-http://bitstrings.github.io/sites/dependencypath-maven-plugin/index.html
+## Sets Properties for dependency versions
 
-## Home
-http://bitstrings.org
+More to come soon....

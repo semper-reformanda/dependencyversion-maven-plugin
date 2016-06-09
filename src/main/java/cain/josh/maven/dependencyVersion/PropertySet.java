@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.bitstrings.maven.plugins.dependencypath;
+package cain.josh.maven.dependencyVersion;
 
 import java.io.File;
 import java.util.Set;

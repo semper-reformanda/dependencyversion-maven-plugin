@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -10,45 +11,31 @@
         <version>7</version>
     </parent>
 
-    <groupId>org.bitstrings.maven.plugins</groupId>
-    <artifactId>dependencypath-maven-plugin</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
-
-    <name>dependencypath-maven-plugin</name>
-
+    <groupId>cain.josh</groupId>
+    <artifactId>dependencyversion-maven-plugin</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Maven Dependency Version Plugin</name>
     <packaging>maven-plugin</packaging>
-
     <description>
-        Sets a property pointing to the artifact file for each selected project dependency.
+        Sets a property pointing to the artifact version for each selected project dependency.
         Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
     </description>
 
-    <inceptionYear>2011</inceptionYear>
-
-    <organization>
-        <name>bitstrings.org</name>
-    </organization>
-
     <developers>
         <developer>
-            <id>p</id>
-            <name>Pino Silvaggio</name>
-            <roles>
-                <role>Lead Developer</role>
-            </roles>
-            <timezone>-5</timezone>
+            <name>Josh Cain</name>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/bitstrings/dependencypath-maven-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:bitstrings/dependencypath-maven-plugin.git</developerConnection>
-        <url>https://github.com/bitstrings/dependencypath-maven-plugin</url>
+        <connection>scm:https://github.com/cainj13/dependencyversion-maven-plugin.git</connection>
+        <developerConnection>scm:https://github.com/cainj13/dependencyversion-maven-plugin.git</developerConnection>
+        <url>https://github.com/cainj13/dependencyversion-maven-plugin</url>
     </scm>
 
     <issueManagement>
         <system>github</system>
-        <url>https://github.com/bitstrings/dependencypath-maven-plugin/issues</url>
+        <url>https://github.com/cainj13/dependencyversion-maven-plugin/issues</url>
     </issueManagement>
 
     <licenses>
@@ -68,89 +55,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <maven.version>3.0</maven.version>
         <maven-plugin-plugin.version>2.7</maven-plugin-plugin.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.8</version>
-                    <configuration>
-                        <source>1.5</source>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.0-beta-3</version>
-                    <configuration>
-                        <generateSitemap>true</generateSitemap>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.7</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.2.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <version>${maven-plugin-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <useJava5>true</useJava5>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generated-helpmojo</id>
-                        <goals>
-                            <goal>helpmojo</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.11</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -159,137 +68,5 @@
             <version>${maven.version}</version>
         </dependency>
     </dependencies>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.4</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <version>${maven-plugin-plugin.version}</version>
-                <configuration>
-                    <useJava5>true</useJava5>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8</version>
-                <configuration>
-                    <source>1.5</source>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <linkJavadoc>true</linkJavadoc>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <version>2.4</version>
-            </plugin>
-        </plugins>
-    </reporting>
-
-    <profiles>
-        <profile>
-            <id>build-proper</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>it</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-invoker-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>integration-test</id>
-                                <goals>
-                                    <goal>install</goal>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <debug>false</debug>
-                                    <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
-                                    <preBuildHookScript>setup</preBuildHookScript>
-                                    <postBuildHookScript>verify.bsh</postBuildHookScript>
-                                    <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
-                                    <settingsFile>src/it/settings.xml</settingsFile>
-                                    <goals>
-                                        <goal>package</goal>
-                                    </goals>
-                                    <pomIncludes>
-                                        <pomInclude>pom.xml</pomInclude>
-                                    </pomIncludes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>maven-3</id>
-            <activation>
-                <file>
-                    <!-- This employs that the basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
-                    <exists>${basedir}</exists>
-                </file>
-            </activation>
-            <build>
-                <!-- we need to attach the descriptor for this pom -->
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-site-plugin</artifactId>
-                        <inherited>false</inherited>
-                        <executions>
-                            <execution>
-                                <id>attach-descriptor</id>
-                                <goals>
-                                    <goal>attach-descriptor</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

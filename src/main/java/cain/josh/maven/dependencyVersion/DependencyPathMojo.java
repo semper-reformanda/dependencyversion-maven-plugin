@@ -14,12 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.bitstrings.maven.plugins.dependencypath;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.Set;
+package cain.josh.maven.dependencyVersion;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -27,6 +22,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.PathTool;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * Sets a property pointing to the artifact file for each selected project dependency.
