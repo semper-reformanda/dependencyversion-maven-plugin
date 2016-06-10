@@ -57,4 +57,14 @@ public class PropertyAddPredicateTest {
         final Predicate<String> resultPredicate = new CreatePropertyAddPredicate().apply(propertySet);
         assertThat(resultPredicate.test("foo"), is(false));
     }
+
+    @Test
+    public void shouldExcludeWhenOnNeitherExcludeNorInclude() {
+        final PropertySet propertySet = new PropertySet();
+        propertySet.setIncludes(Collections.singleton("foo"));
+        propertySet.setExcludes(Collections.singleton("bar"));
+
+        final Predicate<String> resultPredicate = new CreatePropertyAddPredicate().apply(propertySet);
+        assertThat(resultPredicate.test("fubar"), is(false));
+    }
 }

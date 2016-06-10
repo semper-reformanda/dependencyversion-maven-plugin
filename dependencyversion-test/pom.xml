@@ -29,6 +29,7 @@
         <module>filter-all-dependencies</module>
         <module>omit-transitive-dependencies</module>
         <module>use-custom-suffix</module>
+        <module>include-exclude-list</module>
     </modules>
 
 
