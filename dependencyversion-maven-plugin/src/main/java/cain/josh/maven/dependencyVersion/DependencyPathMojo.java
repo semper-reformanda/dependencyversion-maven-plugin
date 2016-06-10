@@ -29,10 +29,10 @@ import java.util.Set;
 
 // TODO document why path is no longer needed (I.E. dependency:properties)
 /**
- * Sets a property pointing to the artifact file for each selected project dependency.
+ * Sets a property pointing to the artifact version for each selected project dependency.
  * Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
  *
- * @author Pino Silvaggio
+ * @author Josh Cain
  * @requiresDependencyResolution test
  * @goal set
  * @phase initialize
@@ -159,6 +159,8 @@ public class DependencyPathMojo extends AbstractMojo {
                                     + ".");
                 }
 
+                final String s = String.format("Setting %s=%s", key, path);
+                getLog().info(s.subSequence(0, s.length()));
                 properties.setProperty(key, path);
             }
         }
