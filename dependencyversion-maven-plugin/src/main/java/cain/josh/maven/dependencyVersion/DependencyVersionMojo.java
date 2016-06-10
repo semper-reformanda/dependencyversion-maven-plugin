@@ -46,6 +46,10 @@ import java.util.Set;
  * Would have base name of:
  *
  * io.undertow:undertow-core:jar
+ *
+ * resulting in a property:
+ *
+ * io.undertow:undertow-core:jar.version=1.3.15.Final
  */
 @Mojo(name = "set-version",
     defaultPhase = LifecyclePhase.INITIALIZE,
@@ -92,7 +96,7 @@ public class DependencyVersionMojo extends AbstractMojo {
                     continue;
                 }
 
-                final String key = dependencyConflictId + "." + Optional.ofNullable(propertySet.getSuffix()).orElse(PropertySet.SUFFIX_DEFAULT_VALUE);
+                final String key = String.format("%s.%s", dependencyConflictId, Optional.ofNullable(propertySet.getSuffix()).orElse(PropertySet.SUFFIX_DEFAULT_VALUE));
                 final String path = artifact.getVersion();
                 if (getLog().isDebugEnabled()) {
                     getLog().debug(
