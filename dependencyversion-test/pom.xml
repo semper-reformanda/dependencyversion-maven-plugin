@@ -64,10 +64,11 @@
                     <execution>
                         <id>set-all</id>
                         <goals>
-                            <goal>set</goal>
+                            <goal>set-version</goal>
                         </goals>
                     </execution>
                 </executions>
+                <!-- TODO test filtered set (subset of dependencies) -->
             </plugin>
         </plugins>
     </build>
