@@ -33,8 +33,6 @@ public class PropertySet
     private Set<String> excludes;
     @Parameter
     private Boolean transitive;
-    @Parameter
-    private Boolean autoRelativeSuffix;
 
     public String getSuffix()
     {
@@ -76,16 +74,6 @@ public class PropertySet
         this.transitive = transitive;
     }
 
-    public Boolean getAutoRelativeSuffix()
-    {
-        return autoRelativeSuffix;
-    }
-
-    public void setAutoRelativeSuffix(Boolean autoRelativeSuffix)
-    {
-        this.autoRelativeSuffix = autoRelativeSuffix;
-    }
-
     @Override
     public String toString()
     {
@@ -93,7 +81,6 @@ public class PropertySet
                 "suffix: " + suffix
                     + ", includes: " + includes
                     + ", excludes: " + excludes
-                    + ", transitive: " + transitive
-                    + ", autoRelativeSuffix: " + autoRelativeSuffix;
+                    + ", transitive: " + transitive;
     }
 }

@@ -84,10 +84,6 @@ public class DependencyVersionMojo extends AbstractMojo {
             propertySets = new PropertySet[]{new PropertySet()};
         }
 
-        if (defaultPropertySet.getAutoRelativeSuffix() == null) {
-            defaultPropertySet.setAutoRelativeSuffix(true);
-        }
-
         if (defaultPropertySet.getTransitive() == null) {
             defaultPropertySet.setTransitive(true);
         }
