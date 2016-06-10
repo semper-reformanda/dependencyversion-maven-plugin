@@ -50,7 +50,7 @@ import java.util.Set;
     defaultPhase = LifecyclePhase.INITIALIZE,
     requiresDependencyResolution = ResolutionScope.TEST,
     threadSafe = true)
-public class DependencyPathMojo extends AbstractMojo {
+public class DependencyVersionMojo extends AbstractMojo {
 
     /**
      * Should always be supplied by the Maven runner - provides the Maven project structure + dependency mappings
