@@ -25,7 +25,9 @@ import java.util.Set;
  */
 public class PropertySet
 {
-    @Parameter
+    public static final String SUFFIX_DEFAULT_VALUE = "version";
+
+    @Parameter(defaultValue = SUFFIX_DEFAULT_VALUE)
     private String suffix;
     @Parameter
     private Set<String> includes;

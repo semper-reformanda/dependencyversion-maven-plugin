@@ -27,6 +27,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
 
@@ -78,12 +79,7 @@ public class DependencyVersionMojo extends AbstractMojo {
             final Set<String> includes = propertySet.getIncludes();
             final Set<String> excludes = propertySet.getExcludes();
 
-            Boolean transitive = propertySet.getTransitive();
-
-            if (transitive == null) {
-                transitive = true;
-            }
-
+            final boolean transitive = Optional.ofNullable(propertySet.getTransitive()).orElse(true);
             final Set<Artifact> artifacts = transitive ? project.getArtifacts() : project.getDependencyArtifacts();
 
             for (Artifact artifact : artifacts) {
@@ -96,12 +92,7 @@ public class DependencyVersionMojo extends AbstractMojo {
                     continue;
                 }
 
-                String key = dependencyConflictId;
-                final String suffix = propertySet.getSuffix();
-                if (suffix != null) {
-                    key += "." + suffix;
-                }
-
+                final String key = dependencyConflictId + "." + Optional.ofNullable(propertySet.getSuffix()).orElse(PropertySet.SUFFIX_DEFAULT_VALUE);
                 final String path = artifact.getVersion();
                 if (getLog().isDebugEnabled()) {
                     getLog().debug(
