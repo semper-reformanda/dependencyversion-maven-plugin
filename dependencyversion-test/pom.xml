@@ -3,6 +3,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--
+    Why am I writing all of these large-sized integration tests?  Sounds like a really terrible idea when Mojo provides
+    runners for this right?  Nope.
+
+    Check out https://issues.apache.org/jira/browse/MPLUGINTESTING-35.  Apparently, the folks maintaining the test
+    fixtures decided to mark some crucial stuff as 'provided', which leaves you wading through the muck of manual
+    dependency management/compatibility that Maven was created to solve in the first place.  See also this S/O question
+    for examples of folks muddling around attempting to find a reasonable set of dependencies that work:
+    http://stackoverflow.com/questions/22310083/maven-plugin-development-how-to-ensure-building-for-maven-3-0-x-instead-of-3-1
+
+    No thanks, I'll take a reliable-but-ugly IT approach.
+    -->
     <artifactId>dependencyversion-test</artifactId>
     <packaging>pom</packaging>
     <name>Maven Dependency Version Plugin Integration Tests</name>

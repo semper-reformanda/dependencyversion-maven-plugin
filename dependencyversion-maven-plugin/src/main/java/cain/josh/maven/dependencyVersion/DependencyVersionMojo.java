@@ -30,31 +30,32 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * Sets a property pointing to the artifact version for each selected project dependency.
  * Each property name will have a base name in form of groupId:artifactId:type:[classifier][.suffix]
- *
+ * <p>
  * For instance, the following dependency (as declared in a parent pom or BOM):
- *
+ * <p>
  * <dependency>
- *   <groupId>io.undertow</groupId>
- *   <artifactId>undertow-core</artifactId>
- *   <version>1.3.15.Final</version>
+ * <groupId>io.undertow</groupId>
+ * <artifactId>undertow-core</artifactId>
+ * <version>1.3.15.Final</version>
  * </dependency>
- *
+ * <p>
  * Would have base name of:
- *
+ * <p>
  * io.undertow:undertow-core:jar
- *
+ * <p>
  * resulting in a property:
- *
+ * <p>
  * io.undertow:undertow-core:jar.version=1.3.15.Final
  */
 @Mojo(name = "set-version",
-    defaultPhase = LifecyclePhase.INITIALIZE,
-    requiresDependencyResolution = ResolutionScope.TEST,
-    threadSafe = true)
+        defaultPhase = LifecyclePhase.INITIALIZE,
+        requiresDependencyResolution = ResolutionScope.TEST,
+        threadSafe = true)
 public class DependencyVersionMojo extends AbstractMojo {
 
     /**
@@ -78,10 +79,8 @@ public class DependencyVersionMojo extends AbstractMojo {
         }
 
         final Properties properties = project.getProperties();
-
         for (PropertySet propertySet : propertySets) {
-            final Set<String> includes = propertySet.getIncludes();
-            final Set<String> excludes = propertySet.getExcludes();
+            final Predicate<String> shouldAddPropertyForDependency = new CreatePropertyAddPredicate().apply(propertySet);
 
             final boolean transitive = Optional.ofNullable(propertySet.getTransitive()).orElse(true);
             final Set<Artifact> artifacts = transitive ? project.getArtifacts() : project.getDependencyArtifacts();
@@ -89,21 +88,16 @@ public class DependencyVersionMojo extends AbstractMojo {
             for (Artifact artifact : artifacts) {
                 final String dependencyConflictId = artifact.getDependencyConflictId();
 
-                if (((includes != null) && !includes.isEmpty()
-                        && !includes.contains(dependencyConflictId))
-                        || ((excludes != null) && !excludes.isEmpty()
-                        && excludes.contains(dependencyConflictId))) {
-                    continue;
+                if (shouldAddPropertyForDependency.test(dependencyConflictId)) {
+                    final String key = String.format("%s.%s", dependencyConflictId, Optional.ofNullable(propertySet.getSuffix()).orElse(PropertySet.SUFFIX_DEFAULT_VALUE));
+                    final String path = artifact.getVersion();
+                    if (getLog().isDebugEnabled()) {
+                        getLog().debug(
+                                "Setting property for " + dependencyConflictId
+                                        + " with key=" + key + ", path=" + path);
+                    }
+                    properties.setProperty(key, path);
                 }
-
-                final String key = String.format("%s.%s", dependencyConflictId, Optional.ofNullable(propertySet.getSuffix()).orElse(PropertySet.SUFFIX_DEFAULT_VALUE));
-                final String path = artifact.getVersion();
-                if (getLog().isDebugEnabled()) {
-                    getLog().debug(
-                            "Setting property for " + dependencyConflictId
-                                    + " with key=" + key + ", path=" + path);
-                }
-                properties.setProperty(key, path);
             }
         }
     }
