@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>dependencyversion-maven-plugin</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <name>Maven Dependency Version Plugin</name>
     <packaging>maven-plugin</packaging>
     <description>

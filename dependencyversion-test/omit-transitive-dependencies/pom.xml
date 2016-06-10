@@ -4,62 +4,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>omit-transitive-dependencies</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <name>IT - Omit Transitive Dependencies</name>
 
     <parent>
         <groupId>cain.josh</groupId>
-        <artifactId>dependencyversion-maven-plugin-parent</artifactId>
+        <artifactId>dependencyversion-test</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>io.undertow</groupId>
-            <artifactId>undertow-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-javaee7</artifactId>
-                <scope>import</scope>
-                <type>pom</type>
-                <version>10.0.0.Final</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <includes>
-                    <include>testPlugin.properties</include>
-                </includes>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
-
         <plugins>
             <plugin>
                 <groupId>cain.josh</groupId>
                 <artifactId>dependencyversion-maven-plugin</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-                <!-- TODO centralize this property -->
                 <executions>
                     <execution>
                         <id>set-non-transitive</id>
@@ -75,7 +32,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <!-- TODO test filtered set (subset of dependencies) -->
             </plugin>
         </plugins>
     </build>

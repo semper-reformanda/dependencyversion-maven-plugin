@@ -19,6 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <dependencyversion-maven-plugin.version>${project.version}</dependencyversion-maven-plugin.version>
     </properties>
 
     <developers>
