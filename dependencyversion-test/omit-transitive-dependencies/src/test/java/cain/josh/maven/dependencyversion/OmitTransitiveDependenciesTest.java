@@ -13,11 +13,6 @@ import static org.junit.Assert.assertThat;
 
 public class OmitTransitiveDependenciesTest {
 
-    // TODO test classifier
-    // TODO test suffix
-    // TODO test filtering - I.E. only specifying certain dependencies
-    // TODO test transitive
-
     static Properties properties;
 
     @BeforeClass
