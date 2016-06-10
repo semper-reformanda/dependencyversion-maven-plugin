@@ -9,6 +9,9 @@ import static org.junit.Assert.assertEquals;
 
 public class TemplatesFileTest {
 
+    // TODO test classifier
+    // TODO test suffix
+    // TODO test filtering - I.E. only specifying certain dependencies
     @Test
     public void shouldTemplateFile() throws Exception {
         final Properties properties = new Properties();

@@ -31,10 +31,21 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
 
-// TODO document why path is no longer needed (I.E. dependency:properties)
 /**
  * Sets a property pointing to the artifact version for each selected project dependency.
- * Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
+ * Each property name will have a base name in form of groupId:artifactId:type:[classifier][.suffix]
+ *
+ * For instance, the following dependency (as declared in a parent pom or BOM):
+ *
+ * <dependency>
+ *   <groupId>io.undertow</groupId>
+ *   <artifactId>undertow-core</artifactId>
+ *   <version>1.3.15.Final</version>
+ * </dependency>
+ *
+ * Would have base name of:
+ *
+ * io.undertow:undertow-core:jar
  */
 @Mojo(name = "set-version",
     defaultPhase = LifecyclePhase.INITIALIZE,
@@ -42,6 +53,9 @@ import java.util.Set;
     threadSafe = true)
 public class DependencyPathMojo extends AbstractMojo {
 
+    /**
+     * Should always be supplied by the Maven runner - provides the Maven project structure + dependency mappings
+     */
     @Parameter(alias = "project",
             property = "project",
             required = true,
