@@ -16,13 +16,10 @@
  */
 package cain.josh.maven.dependencyVersion;
 
-import java.io.File;
 import java.util.Set;
 
 /**
- *
- * @author Pino Silvaggio
- *
+ * Data structure to hold property set specifications
  */
 public class PropertySet
 {
@@ -46,13 +43,6 @@ public class PropertySet
      * @since 1.0.0
      */
     private Set<String> excludes;
-
-    /**
-     * @parameter
-     *
-     * @since 1.0.0
-     */
-    private File relativeTo;
 
     /**
      * @parameter
@@ -98,15 +88,6 @@ public class PropertySet
         this.excludes = excludes;
     }
 
-    public File getRelativeTo()
-    {
-        return relativeTo;
-    }
-    public void setRelativeTo(File relativeTo)
-    {
-        this.relativeTo = relativeTo;
-    }
-
     public Boolean getTransitive()
     {
         return transitive;
@@ -134,7 +115,6 @@ public class PropertySet
                 "suffix: " + suffix
                     + ", includes: " + includes
                     + ", excludes: " + excludes
-                    + ", relativeTo: " + relativeTo
                     + ", transitive: " + transitive
                     + ", autoRelativeSuffix: " + autoRelativeSuffix;
     }

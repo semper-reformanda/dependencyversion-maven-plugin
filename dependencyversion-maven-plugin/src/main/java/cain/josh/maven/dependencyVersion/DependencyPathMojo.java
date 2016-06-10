@@ -26,7 +26,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
@@ -127,24 +126,6 @@ public class DependencyPathMojo extends AbstractMojo {
 
                 String key = dependencyConflictId;
 
-                File relativeTo = propertySet.getRelativeTo();
-
-                if (relativeTo == null) {
-                    relativeTo = defaultPropertySet.getRelativeTo();
-                }
-
-                if (relativeTo != null) {
-                    Boolean autoRelativeSuffix = propertySet.getAutoRelativeSuffix();
-
-                    if (autoRelativeSuffix == null) {
-                        autoRelativeSuffix = defaultPropertySet.getAutoRelativeSuffix();
-                    }
-
-                    if (autoRelativeSuffix) {
-                        key += ".relative";
-                    }
-                }
-
                 String suffix = propertySet.getSuffix();
 
                 if (suffix == null) {
@@ -155,30 +136,14 @@ public class DependencyPathMojo extends AbstractMojo {
                     key += "." + suffix;
                 }
 
-                final String path = getVersion(artifact, relativeTo);
-
+                final String path = artifact.getVersion();
                 if (getLog().isDebugEnabled()) {
                     getLog().debug(
                             "Setting property for " + dependencyConflictId
                                     + " with key=" + key + ", path=" + path);
                 }
-
-                if (path == null) {
-                    throw new MojoExecutionException(
-                            "Unable to obtain path for " + dependencyConflictId
-                                    + (relativeTo == null ? "(absolute)" : "(relative to " + relativeTo + ")")
-                                    + ".");
-                }
-
-                final String s = String.format("Setting %s=%s", key, path);
-                getLog().info(s.subSequence(0, s.length()));
                 properties.setProperty(key, path);
             }
         }
-    }
-
-    // TODO remove 'relativeTo'
-    protected String getVersion(Artifact artifact, File relativeTo) {
-        return artifact.getVersion();
     }
 }
