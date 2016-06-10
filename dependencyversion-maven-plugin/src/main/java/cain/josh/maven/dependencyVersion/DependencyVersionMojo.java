@@ -93,8 +93,8 @@ public class DependencyVersionMojo extends AbstractMojo {
         }
 
         if (getLog().isDebugEnabled()) {
-            getLog().debug("defaultPropertySet" + defaultPropertySet);
-            getLog().debug("propertySets" + Arrays.toString(propertySets));
+            getLog().debug("defaultPropertySet: " + defaultPropertySet);
+            getLog().debug("propertySets: " + Arrays.toString(propertySets));
         }
 
         final Properties properties = project.getProperties();
@@ -109,10 +109,7 @@ public class DependencyVersionMojo extends AbstractMojo {
                 transitive = defaultPropertySet.getTransitive();
             }
 
-            final Set<Artifact> artifacts =
-                    transitive
-                            ? project.getArtifacts()
-                            : project.getDependencyArtifacts();
+            final Set<Artifact> artifacts = transitive ? project.getArtifacts() : project.getDependencyArtifacts();
 
             for (Artifact artifact : artifacts) {
                 final String dependencyConflictId = artifact.getDependencyConflictId();
