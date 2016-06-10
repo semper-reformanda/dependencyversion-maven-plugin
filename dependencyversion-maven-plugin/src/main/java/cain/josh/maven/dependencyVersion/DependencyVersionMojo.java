@@ -60,36 +60,15 @@ public class DependencyVersionMojo extends AbstractMojo {
             required = true,
             readonly = true)
     private MavenProject project;
-
-    /**
-     * The default property set.
-     * See <a href="propertyset-reference.html">PropertySet Reference</a>.
-     */
-    @Parameter
-    private PropertySet defaultPropertySet;
-
-    /**
-     * The property sets.
-     * See <a href="propertyset-reference.html">PropertySet Reference</a>.
-     */
     @Parameter
     private PropertySet[] propertySets;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        if (defaultPropertySet == null) {
-            defaultPropertySet = new PropertySet();
-        }
-
         if (propertySets == null) {
             propertySets = new PropertySet[]{new PropertySet()};
         }
 
-        if (defaultPropertySet.getTransitive() == null) {
-            defaultPropertySet.setTransitive(true);
-        }
-
         if (getLog().isDebugEnabled()) {
-            getLog().debug("defaultPropertySet: " + defaultPropertySet);
             getLog().debug("propertySets: " + Arrays.toString(propertySets));
         }
 
@@ -102,7 +81,7 @@ public class DependencyVersionMojo extends AbstractMojo {
             Boolean transitive = propertySet.getTransitive();
 
             if (transitive == null) {
-                transitive = defaultPropertySet.getTransitive();
+                transitive = true;
             }
 
             final Set<Artifact> artifacts = transitive ? project.getArtifacts() : project.getDependencyArtifacts();
@@ -118,13 +97,7 @@ public class DependencyVersionMojo extends AbstractMojo {
                 }
 
                 String key = dependencyConflictId;
-
-                String suffix = propertySet.getSuffix();
-
-                if (suffix == null) {
-                    suffix = defaultPropertySet.getSuffix();
-                }
-
+                final String suffix = propertySet.getSuffix();
                 if (suffix != null) {
                     key += "." + suffix;
                 }
