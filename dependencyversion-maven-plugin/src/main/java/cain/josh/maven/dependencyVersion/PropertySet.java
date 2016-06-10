@@ -16,6 +16,8 @@
  */
 package cain.josh.maven.dependencyVersion;
 
+import org.apache.maven.plugins.annotations.Parameter;
+
 import java.util.Set;
 
 /**
@@ -23,39 +25,15 @@ import java.util.Set;
  */
 public class PropertySet
 {
-    /**
-     * @parameter
-     *
-     * @since 1.0.0
-     */
+    @Parameter
     private String suffix;
-
-    /**
-     * @parameter
-     *
-     * @since 1.0.0
-     */
+    @Parameter
     private Set<String> includes;
-
-    /**
-     * @parameter
-     *
-     * @since 1.0.0
-     */
+    @Parameter
     private Set<String> excludes;
-
-    /**
-     * @parameter
-     *
-     * @since 1.0.0
-     */
+    @Parameter
     private Boolean transitive;
-
-    /**
-     * @parameter
-     *
-     * @since 1.0.0
-     */
+    @Parameter
     private Boolean autoRelativeSuffix;
 
     public String getSuffix()
