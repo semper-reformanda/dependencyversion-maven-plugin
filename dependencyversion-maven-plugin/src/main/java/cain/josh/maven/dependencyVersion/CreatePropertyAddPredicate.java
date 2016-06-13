@@ -1,7 +1,6 @@
 package cain.josh.maven.dependencyVersion;
 
-import edu.emory.mathcs.backport.java.util.Collections;
-
+import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;

@@ -73,12 +73,15 @@ public class DependencyVersionMojo extends AbstractMojo {
         if (propertySets == null) {
             propertySets = new PropertySet[]{new PropertySet()};
         }
-
         if (getLog().isDebugEnabled()) {
             getLog().debug("propertySets: " + Arrays.toString(propertySets));
         }
 
         final Properties properties = project.getProperties();
+        if (properties == null) {
+            throw new MojoExecutionException("Could not get properties for project, cannot set artifact version properties.");
+        }
+
         for (PropertySet propertySet : propertySets) {
             final Predicate<String> shouldAddPropertyForDependency = new CreatePropertyAddPredicate().apply(propertySet);
 
@@ -90,13 +93,12 @@ public class DependencyVersionMojo extends AbstractMojo {
 
                 if (shouldAddPropertyForDependency.test(dependencyConflictId)) {
                     final String key = String.format("%s.%s", dependencyConflictId, Optional.ofNullable(propertySet.getSuffix()).orElse(PropertySet.SUFFIX_DEFAULT_VALUE));
-                    final String path = artifact.getVersion();
+                    final String version = artifact.getVersion();
                     if (getLog().isDebugEnabled()) {
-                        getLog().debug(
-                                "Setting property for " + dependencyConflictId
-                                        + " with key=" + key + ", path=" + path);
+                        getLog().debug(String.format("Setting property for %s with key=%s, version=%s", dependencyConflictId, key, version));
                     }
-                    properties.setProperty(key, path);
+
+                    properties.setProperty(key, version);
                 }
             }
         }

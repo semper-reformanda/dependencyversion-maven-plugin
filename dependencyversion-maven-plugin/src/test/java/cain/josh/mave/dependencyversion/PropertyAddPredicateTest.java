@@ -2,9 +2,9 @@ package cain.josh.mave.dependencyversion;
 
 import cain.josh.maven.dependencyVersion.CreatePropertyAddPredicate;
 import cain.josh.maven.dependencyVersion.PropertySet;
-import edu.emory.mathcs.backport.java.util.Collections;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
