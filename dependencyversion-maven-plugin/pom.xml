@@ -12,10 +12,8 @@
     <artifactId>dependencyversion-maven-plugin</artifactId>
     <name>Maven Dependency Version Plugin</name>
     <packaging>maven-plugin</packaging>
-    <description>
-        Sets a property pointing to the artifact version for each selected project dependency.
-        Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
-    </description>
+    <description>Sets a property pointing to the artifact version for each selected project dependency.  Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].</description>
+    <url>http://semper-reformanda.github.io/dependencyversion-maven-plugin/</url>
 
     <dependencies>
         <dependency>
