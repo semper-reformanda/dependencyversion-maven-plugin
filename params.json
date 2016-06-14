@@ -1,0 +1,6 @@
+{
+  "name": "Dependencyversion-maven-plugin",
+  "tagline": "Dependency path property setter for Maven 3",
+  "body": "### Why Does This Plugin Exist?\r\nWhen importing dependencies specified by an external BOM, it can sometimes be useful to reference the dependency version.  However, without the ability to define and import properties through the Maven BOM mechanism, downstream poms have no way to access dependency version information.\r\n\r\n### How Does It Work?\r\nThis plugin addresses the problem of getting dependency versions by setting a project property containing the version string for all dependencies specified in the plugin configuration.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
