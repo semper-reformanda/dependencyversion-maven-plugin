@@ -38,11 +38,7 @@ import java.util.function.Predicate;
  * <p>
  * For instance, the following dependency (as declared in a parent pom or BOM):
  * <p>
- * <dependency>
- * <groupId>io.undertow</groupId>
- * <artifactId>undertow-core</artifactId>
- * <version>1.3.15.Final</version>
- * </dependency>
+ * io.undertow:undertow-core:jar:1.3.15.Final
  * <p>
  * Would have base name of:
  * <p>

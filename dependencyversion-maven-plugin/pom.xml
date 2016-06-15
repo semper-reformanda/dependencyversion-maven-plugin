@@ -12,10 +12,8 @@
     <artifactId>dependencyversion-maven-plugin</artifactId>
     <name>Maven Dependency Version Plugin</name>
     <packaging>maven-plugin</packaging>
-    <description>
-        Sets a property pointing to the artifact version for each selected project dependency.
-        Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].
-    </description>
+    <description>Sets a property pointing to the artifact version for each selected project dependency.  Each property name will have a base name in form of groupId:artifactId:type:[classifier][.relative][.suffix].</description>
+    <url>http://semper-reformanda.github.io/dependencyversion-maven-plugin/</url>
 
     <dependencies>
         <dependency>
@@ -66,6 +64,30 @@
                             <goal>helpmojo</goal>
                         </goals>
                         <phase>process-classes</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
