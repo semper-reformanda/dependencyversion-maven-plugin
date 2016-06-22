@@ -20,7 +20,7 @@
     <name>Maven Dependency Version Plugin Integration Tests</name>
 
     <parent>
-        <groupId>io.semper.reformanda</groupId>
+        <groupId>io.reformanda.semper</groupId>
         <artifactId>dependencyversion-maven-plugin-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -67,7 +67,7 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>io.semper.reformanda</groupId>
+                    <groupId>io.reformanda.semper</groupId>
                     <artifactId>dependencyversion-maven-plugin</artifactId>
                     <version>${dependencyversion-maven-plugin.version}</version>
                 </plugin>
