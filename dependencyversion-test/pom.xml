@@ -32,7 +32,6 @@
         <module>include-exclude-list</module>
     </modules>
 
-
     <dependencies>
         <dependency>
             <groupId>commons-io</groupId>
@@ -83,6 +82,15 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
