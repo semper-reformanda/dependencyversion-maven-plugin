@@ -89,7 +89,7 @@ public class DependencyVersionMojo extends AbstractMojo {
 
                 if (shouldAddPropertyForDependency.test(dependencyConflictId)) {
                     final String key = String.format("%s.%s", dependencyConflictId, Optional.ofNullable(propertySet.getSuffix()).orElse(PropertySet.SUFFIX_DEFAULT_VALUE));
-                    final String version = artifact.getVersion();
+                    final String version = artifact.getBaseVersion();
                     if (getLog().isDebugEnabled()) {
                         getLog().debug(String.format("Setting property for %s with key=%s, version=%s", dependencyConflictId, key, version));
                     }
