@@ -5,7 +5,7 @@
 
     <groupId>io.reformanda.semper</groupId>
     <artifactId>dependencyversion-maven-plugin-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>Maven Dependency Version Plugin Parent Pom</name>
     <packaging>pom</packaging>
     <description>Parent for dependencyversion-maven-plugin</description>
