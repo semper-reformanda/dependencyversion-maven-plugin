@@ -8,6 +8,8 @@
     <version>1.0.0</version>
     <name>Maven Dependency Version Plugin Parent Pom</name>
     <packaging>pom</packaging>
+    <description>Parent for dependencyversion-maven-plugin</description>
+    <url>http://semper-reformanda.github.io/dependencyversion-maven-plugin/</url>
 
     <modules>
         <module>dependencyversion-maven-plugin</module>
@@ -60,4 +62,32 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>sign</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
